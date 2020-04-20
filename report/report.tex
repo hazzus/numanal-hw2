@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
 \usepackage{fancyhdr}
+\usepackage{titlesec}
 \usepackage{fullpage}
 \usepackage{xcolor}
 \usepackage{subfiles}
@@ -35,7 +36,7 @@
     tabsize=4,
     texcl=true
 }
-\addto\captionsrussian{\renewcommand{\chaptername}{Лекция}}
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{}{20pt}{\Huge}
 \addto\captionsrussian{\renewcommand{\contentsname}{Содержание}}
 \newcommand\todo[1]{\textcolor{red}{TODO #1}}
 \newcommand\hwpart[1]{
