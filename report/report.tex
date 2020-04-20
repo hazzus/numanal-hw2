@@ -36,26 +36,26 @@
 \addto\captionsrussian{\renewcommand{\chaptername}{Лекция}}
 \addto\captionsrussian{\renewcommand{\contentsname}{Содержание}}
 \newcommand\todo[1]{\textcolor{red}{TODO #1}}
-\newcommand\lecture[1]{
-    \lstset{inputpath=lectures/lecture#1}
-    \graphicspath{{lectures/lecture#1/}}
-    \subfile{lectures/lecture#1/lecture}
+\newcommand\hwpart[1]{
+    \lstset{inputpath=../task#1}
+    \graphicspath{{../task#1/}}
+    \subfile{parts/part#1/part}
 }
 \newcommand\code[2]{
     \ifthenelse{\equal{#2}{asm}} {
-        \lstinputlisting[language={[x86masm]Assembler}, title=#1]{src/#1}
+        \lstinputlisting[language={[x86masm]Assembler}, title=#1]{#1}
     } {
         \ifthenelse{\equal{#2}{C++}} {
-            \lstinputlisting[language=C++, title=#1]{src/#1}
+            \lstinputlisting[language=C++, title=#1]{#1}
         } {
-            \lstinputlisting[language=C, title=#1]{src/#1}
+            \lstinputlisting[language=C, title=#1]{#1}
         }
     }
 }
 \newcommand\centerimage[3]{
     \begin{figure}[H]
         \centering
-        \includegraphics[scale=#3]{images/#1}
+        \includegraphics[scale=#3]{#1}
         \caption{#2}
     \end{figure}
 }
@@ -72,6 +72,6 @@
 \maketitle
 \tableofcontents
 
-\lecture{01}
+\hwpart{1}
 
 \end{document}
