@@ -1,0 +1,84 @@
+\documentclass[12pt, a4paper]{report}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{fancyhdr}
+\usepackage{fullpage}
+\usepackage{xcolor}
+\usepackage{subfiles}
+\usepackage{listings}
+\usepackage{ifthen}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    frame=single,
+    basicstyle={\small\ttfamily},
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    texcl=true
+}
+\addto\captionsrussian{\renewcommand{\chaptername}{Лекция}}
+\addto\captionsrussian{\renewcommand{\contentsname}{Содержание}}
+\newcommand\todo[1]{\textcolor{red}{TODO #1}}
+\newcommand\lecture[1]{
+    \lstset{inputpath=lectures/lecture#1}
+    \graphicspath{{lectures/lecture#1/}}
+    \subfile{lectures/lecture#1/lecture}
+}
+\newcommand\code[2]{
+    \ifthenelse{\equal{#2}{asm}} {
+        \lstinputlisting[language={[x86masm]Assembler}, title=#1]{src/#1}
+    } {
+        \ifthenelse{\equal{#2}{C++}} {
+            \lstinputlisting[language=C++, title=#1]{src/#1}
+        } {
+            \lstinputlisting[language=C, title=#1]{src/#1}
+        }
+    }
+}
+\newcommand\centerimage[3]{
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=#3]{images/#1}
+        \caption{#2}
+    \end{figure}
+}
+\newcommand\shell[1]{
+    \textbf{\$ #1}
+}
+
+\title{Операционные системы}
+\author{}
+\parindent=0cm
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\lecture{01}
+\lecture{02}
+\lecture{03}
+\lecture{04}
+\lecture{05}
+\lecture{06}
+\lecture{07}
+\lecture{08}
+
+\end{document}
