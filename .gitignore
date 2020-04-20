@@ -1,0 +1,4 @@
+*.log
+*.prv
+**/build
+*.pdf
