@@ -11,6 +11,7 @@ jobs:
         with:
           root_file: report.tex
           working_directory: report
+      - name: Upload compiled PDF to artifacts
       - uses: actions/upload-artifact@v1
         with:
           name: report.pdf
