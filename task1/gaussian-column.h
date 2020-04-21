@@ -1,15 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <iomanip>
 
 using namespace std;
-
-void print_vector(const vector<double> &vector) {
-    for (double i : vector) {
-        cout << setprecision(9) << setw(9) << i << " ";
-    }
-    cout << endl;
-}
 
 vector<double> gaussian_column(vector<vector<double>> matrix) {
     int n = matrix.size();
@@ -38,16 +30,4 @@ vector<double> gaussian_column(vector<vector<double>> matrix) {
         xs[i] = (matrix[i][m - 1] - sum) / matrix[i][i];
     }
     return xs;
-}
-
-vector<vector<double>> test = { //1 1 1
-        {0, 1, 1, 2},
-        {2, 0, 3, 5},
-        {1, 1, 1, 3},
-};
-
-
-int main() {
-    print_vector(gaussian_column(test));
-    return 0;
 }

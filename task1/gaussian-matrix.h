@@ -1,15 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <iomanip>
 
 using namespace std;
-
-void print_vector(const vector<double> &vector) {
-    for (double i : vector) {
-        cout << setprecision(9) << setw(9) << i << " ";
-    }
-    cout << endl;
-}
 
 vector<double> gaussian_matrix(vector<vector<double>> matrix) {
     int n = matrix.size();
@@ -20,7 +12,7 @@ vector<double> gaussian_matrix(vector<vector<double>> matrix) {
         permut.push_back(i);
     }
     for (int i = 0; i < matrix.size() - 1; ++i) {
-        //find row id with maximum element in first column
+        //find maximum element in the remaining submatrix
         int max_i = i;
         int max_j = i;
 
@@ -62,16 +54,4 @@ vector<double> gaussian_matrix(vector<vector<double>> matrix) {
         }
     }
     return xs;
-}
-
-vector<vector<double>> test = { // 1 1 1
-        {0, 1, 1, 2},
-        {2, 0, 3, 5},
-        {1, 1, 1, 3},
-};
-
-
-int main() {
-    print_vector(gaussian_matrix(test));
-    return 0;
 }
