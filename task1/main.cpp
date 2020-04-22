@@ -25,21 +25,21 @@ int main() {
     out << "column: ";
     print_vector(gaussian_column(dominated), out);
     out << "matrix: ";
-    print_vector(gaussian_column(dominated), out);
+    print_vector(gaussian_matrix(dominated), out);
     out << endl;
 
     out << "hilbert:" << endl;
     out << "column: ";
     print_vector(gaussian_column(hilbert), out);
     out << "matrix: ";
-    print_vector(gaussian_column(hilbert), out);
+    print_vector(gaussian_matrix(hilbert), out);
     out << endl;
 
     out << "random:" << endl;
     out << "column: ";
     print_vector(gaussian_column(random_m), out);
     out << "matrix: ";
-    print_vector(gaussian_column(random_m), out);
+    print_vector(gaussian_matrix(random_m), out);
     out << endl;
 
     out.close();
