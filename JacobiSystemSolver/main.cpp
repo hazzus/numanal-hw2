@@ -2,10 +2,11 @@
 #include <vector>
 #include <random>
 #include <iomanip>
+#include <fstream>
 
 #include "JacobiSystemSolver.h"
 
-#define LINE_SIZE 5
+#define LINE_SIZE 10
 
 std::random_device rd;
 std::mt19937 e2(rd());
@@ -26,76 +27,101 @@ void computeAndPrintInfo(
         int indent = 14) {
     for (int i = 0; i < LINE_SIZE; ++i) {
         for (int j = 0; j < LINE_SIZE; ++j) {
-            std::cout << std::setw(14) << coefs[i][j];
+            std::cout << std::setw(8) << coefs[i][j];
         }
-        std::cout << " | " << std::setw(14) << freeVars[i] << '\n';
+        std::cout << " | " << std::setw(8) << freeVars[i] << '\n';
     }
 
     std::cout << "With start approach\n";
     for (auto element : approach) {
-        std::cout << std::setw(14) << element;
+        std::cout << element << " ";
     }
     std::cout << '\n';
 
     jacobiSystemSolver.findSolution(coefs, freeVars, approach);
 
+    std::cout << std::fixed;
     std::cout << "Solution\n";
     for (auto element : approach) {
-        std::cout << std::setw(14) << element;
+        std::cout << element << " ";
     }
+
+    std::cout << std::endl;
+    std::cout << "Multilication result\n";
+    for (int i = 0; i < LINE_SIZE; ++i) {
+        double accum = 0;
+        for (int j = 0; j < LINE_SIZE; ++j) {
+            accum += coefs[i][j] * approach[j];
+        }
+        std::cout << accum << " "; 
+    }
+    
+    std::cout << std::defaultfloat;
     std::cout << "\n\n";
 }
 
 int main() {
     srand(time(nullptr));
 
-    JacobiSystemSolver jacobiSystemSolver(1e-8);
+    JacobiSystemSolver jacobiSystemSolver(1e-8, 30);
 
     std::cout << "Good conditional matrix\n";
+    std::ifstream inp_random = std::ifstream("../matrices/random");
+    std::ifstream inp_dominated = std::ifstream("../matrices/dominated");
+    std::ifstream inp_hilbert = std::ifstream("../matrices/hilbert");
+    int i;
+    inp_dominated >> i;
     Matrix conditionCoefs(LINE_SIZE, Line(LINE_SIZE));
     for (int i = 0; i < LINE_SIZE; ++i) {
         for (int j = 0; j < LINE_SIZE; ++j) {
-            if (i == j || rand() % LINE_SIZE > std::abs(i - j)) {
-                conditionCoefs[i][j] = (rand() % LINE_SIZE) + 1;
-            }
+            inp_dominated >> conditionCoefs[i][j]; 
         }
     }
 
     Line conditionFreeVars(LINE_SIZE);
-    fillLineWithRandom(conditionFreeVars, 0, 5);
+    for (int i = 0; i < LINE_SIZE; ++i) {
+        inp_dominated >> conditionFreeVars[i];
+    }
 
     Line conditionStart(LINE_SIZE);
-    fillLineWithRandom(conditionStart, 0, 5);
+    fillLineWithRandom(conditionStart, 0, 1);
 
-    computeAndPrintInfo(jacobiSystemSolver, conditionCoefs, conditionFreeVars, conditionStart);
+    computeAndPrintInfo(jacobiSystemSolver, conditionCoefs, conditionFreeVars, conditionStart, 10);
 
     std::cout << "Hilbert matrix case\n";
+    inp_hilbert >> i;
     Matrix hilbertCoefs(LINE_SIZE, Line(LINE_SIZE));
     for (int i = 0; i < LINE_SIZE; ++i) {
         for (int j = 0; j < LINE_SIZE; ++j) {
-            hilbertCoefs[i][j] = 1.0 / (1.0 + i + j);
+            inp_hilbert >> hilbertCoefs[i][j];
         }
     }
 
     Line hilbertFreeVars(LINE_SIZE);
-    fillLineWithRandom(hilbertFreeVars, 0, 5);
+    for (int i = 0; i < LINE_SIZE; ++i) {
+        inp_hilbert >> hilbertFreeVars[i];
+    }
 
     Line hilbertStart(LINE_SIZE);
-    fillLineWithRandom(hilbertStart, 0, 5);
+    fillLineWithRandom(hilbertStart, 0, 1);
 
     computeAndPrintInfo(jacobiSystemSolver, hilbertCoefs, hilbertFreeVars, hilbertStart);
 
     std::cout << "Random elements case\n";
     Matrix randomCoefs(LINE_SIZE, Line(LINE_SIZE));
-    for (Line &line : randomCoefs) {
-        fillLineWithRandom(line, 0, 1);
+    inp_random >> i;
+    for (int i = 0; i < LINE_SIZE; ++i) {
+        for (int j = 0; j < LINE_SIZE; ++j) {
+            inp_random >> randomCoefs[i][j];
+        }
     }
 
     Line randomFreeVars(LINE_SIZE);
-    fillLineWithRandom(randomFreeVars, 0, 1);
-
+    for (int i = 0; i < LINE_SIZE; ++i) {
+        inp_random >> randomFreeVars[i];
+    }
     Line randomStart(LINE_SIZE);
-    fillLineWithRandom(randomStart, 0, 5);
+    fillLineWithRandom(randomStart, 0, 1);
 
     computeAndPrintInfo(jacobiSystemSolver, randomCoefs, randomFreeVars, randomStart);
     return 0;
