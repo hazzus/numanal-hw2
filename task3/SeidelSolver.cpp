@@ -1,7 +1,3 @@
-//
-// Created by polinb on 17.04.2020.
-//
-
 #include <stdexcept>
 #include <iostream>
 #include "SeidelSolver.h"
