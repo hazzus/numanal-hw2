@@ -23,6 +23,21 @@ public class Matrix {
         return matrix;
     }
 
+    public double abs() {
+        for (List<Double> l : matrix) {
+            if (l.size() != 1) {
+                return -1;
+            }
+        }
+
+        double res = 0;
+        for (List<Double> l : matrix) {
+            res += l.get(0) * l.get(0);
+        }
+        res = Math.sqrt(res);
+        return res;
+    }
+
     public Matrix multiply(Matrix other) {
         List<List<Double>> otherMatrix = other.matrix;
         Size otherSize = other.size;

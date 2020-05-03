@@ -2,7 +2,9 @@ package system.solver;
 
 import system.solver.util.Matrix;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Conjugate gradients method implementation
@@ -11,6 +13,7 @@ import java.util.Collections;
 public class Solver {
     private Matrix A;
     private Matrix b;
+    private List<Double> iterationsConvergence;
 
     private int n;
 
@@ -18,16 +21,25 @@ public class Solver {
         this.A = A;
         this.b = b;
         n = A.getSize().n;
+        iterationsConvergence = new ArrayList<>();
     }
 
-    public void solve() {
+    public List<Double> getIterationsConvergence() {
+        return iterationsConvergence;
+    }
+
+    public Matrix solve() {
+        iterationsConvergence.clear();
+
         Matrix x = new Matrix(Collections.nCopies(n, Collections.singletonList(1.0))); // initial approximation, x_0
+        iterationsConvergence.add(calculateConvergence(x));
 
         // iteration #0
         Matrix r = b.subtract(A.multiply(x));
         Matrix p = r;
         double alpha = r.transpose().multiply(r).getOnlyElement() / p.transpose().multiply(A).multiply(p).getOnlyElement();
         x = x.add(p.multiply(alpha));
+        iterationsConvergence.add(calculateConvergence(x));
 
         // other n - 1 iterations
         for (int i = 1; i < n; i++) {
@@ -37,8 +49,13 @@ public class Solver {
             p = r.add(p.multiply(betta));
             alpha = r.transpose().multiply(r).getOnlyElement() / p.transpose().multiply(A).multiply(p).getOnlyElement();
             x = x.add(p.multiply(alpha));
+            iterationsConvergence.add(calculateConvergence(x));
         }
 
-        System.out.println(x.getMatrix()); // print the result
+        return x;
+    }
+
+    private double calculateConvergence(Matrix x) {
+        return A.multiply(x).subtract(b).abs();
     }
 }

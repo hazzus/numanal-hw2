@@ -10,28 +10,47 @@ import java.util.Scanner;
 
 public class Main {
     private static final String DOMINATED = "matrices/dominated";
-    public static final String HILBERT = "matrices/hilbert";
-    public static final String RANDOM = "matrices/random";
+    private static final String HILBERT = "matrices/hilbert";
+    private static final String RANDOM = "matrices/random";
+
+    private static List<List<Double>> iterationsConvergenceLists;
 
     public static void main(String[] args) {
+        iterationsConvergenceLists = new ArrayList<>();
+        solve(DOMINATED, false);
+        solve(HILBERT, false);
+        solve(RANDOM, true);
+
+        System.out.println();
+        for (List<Double> l : iterationsConvergenceLists) {
+            for (double n : l) {
+                System.out.print(n + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private static void solve(String fileName, boolean needToModifyMatrix) {
         List<List<Double>> A = new ArrayList<>();
         List<List<Double>> b = new ArrayList<>();
-        Solver solver;
 
-        readInput(DOMINATED, A, b);
+        readInput(fileName, A, b);
 
-        solver = new Solver(new Matrix(A), new Matrix(b));
-        solver.solve();
+        Matrix aMatrix = new Matrix(A);
+        Matrix bMatrix = new Matrix(b);
 
-        readInput(HILBERT, A, b);
+        if (needToModifyMatrix) {
+            Matrix aTransposed = aMatrix.transpose();
+            aMatrix = aTransposed.multiply(aMatrix);
+            bMatrix = aTransposed.multiply(bMatrix);
+        }
 
-        solver = new Solver(new Matrix(A), new Matrix(b));
-        solver.solve();
+        Solver solver = new Solver(aMatrix, bMatrix);
+        Matrix x = solver.solve();
 
-        readInput(RANDOM, A, b);
+        System.out.println(x.getMatrix());
 
-        solver = new Solver(new Matrix(A), new Matrix(b));
-        solver.solve();
+        iterationsConvergenceLists.add(solver.getIterationsConvergence());
     }
 
     private static void readInput(String fileName, List<List<Double>> A, List<List<Double>> b) {
