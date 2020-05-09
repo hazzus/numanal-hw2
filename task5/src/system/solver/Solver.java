@@ -31,10 +31,10 @@ public class Solver {
     public Matrix solve() {
         iterationsConvergence.clear();
 
-        Matrix x = new Matrix(Collections.nCopies(n, Collections.singletonList(1.0))); // initial approximation, x_0
+        Matrix x = new Matrix(Collections.nCopies(n, Collections.singletonList(1.0))); // initial approximation, x0
         iterationsConvergence.add(calculateConvergence(x));
 
-        // iteration #0
+        // iteration 0
         Matrix r = b.subtract(A.multiply(x));
         Matrix p = r;
         double alpha = r.transpose().multiply(r).getOnlyElement() / p.transpose().multiply(A).multiply(p).getOnlyElement();

@@ -46,13 +46,17 @@
     \subfile{parts/part#1/part}
 }
 \newcommand\code[2]{
-    \ifthenelse{\equal{#2}{asm}} {
-        \lstinputlisting[language={[x86masm]Assembler}, title=#1]{#1}
+    \ifthenelse{\equal{#2}{C++}} {
+        \lstinputlisting[language=C++, title=#1]{#1}
     } {
-        \ifthenelse{\equal{#2}{C++}} {
-            \lstinputlisting[language=C++, title=#1]{#1}
-        } {
+        \ifthenelse{\equal{#2}{C}} {
             \lstinputlisting[language=C, title=#1]{#1}
+        } {
+          \ifthenelse{\equal{#2}{python3}} {
+              \lstinputlisting[language=Python, title=#1]{#1}
+          } {
+              \lstinputlisting[language=Java, title=#1]{#1}
+          }
         }
     }
 }
