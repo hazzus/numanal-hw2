@@ -17,30 +17,41 @@ void print_vector(const vector<double> &vector, ostream &out) {
     out << endl;
 }
 
+void printMethod(const string &methodName,
+                 ostream &out,
+                 const vector<vector<double>> &inp) {
+    out << methodName + ":" << endl;
+    out << "column: ";
+    vector<double> columnRes = gaussian_column(inp);
+    print_vector(columnRes, out);
+    for (int i = 0; i < columnRes.size(); ++i) {
+        double sum = 0;
+        for (int j = 0; j < columnRes.size(); ++j) {
+            sum += inp[i][j] * columnRes[j];
+        }
+        out << sum << " ";
+    }
+    out << endl;
+
+    out << "matrix: ";
+    vector<double> matrixRes = gaussian_column(inp);
+    print_vector(matrixRes, out);
+    for (int i = 0; i < matrixRes.size(); ++i) {
+        double sum = 0;
+        for (int j = 0; j < matrixRes.size(); ++j) {
+            sum += inp[i][j] * matrixRes[j];
+        }
+        out << sum << " ";
+    }
+    out << endl;
+    out << endl;
+}
 
 int main() {
     ofstream out("../results.txt");
-
-    out << "dominated:" << endl;
-    out << "column: ";
-    print_vector(gaussian_column(dominated), out);
-    out << "matrix: ";
-    print_vector(gaussian_matrix(dominated), out);
-    out << endl;
-
-    out << "hilbert:" << endl;
-    out << "column: ";
-    print_vector(gaussian_column(hilbert), out);
-    out << "matrix: ";
-    print_vector(gaussian_matrix(hilbert), out);
-    out << endl;
-
-    out << "random:" << endl;
-    out << "column: ";
-    print_vector(gaussian_column(random_m), out);
-    out << "matrix: ";
-    print_vector(gaussian_matrix(random_m), out);
-    out << endl;
+    printMethod("dominated", out, dominated);
+    printMethod("hilbert", out, hilbert);
+    printMethod("random", out, random_m);
 
     out.close();
     return 0;
