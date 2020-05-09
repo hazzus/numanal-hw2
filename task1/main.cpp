@@ -12,7 +12,7 @@ using namespace std;
 
 void print_vector(const vector<double> &vector, ostream &out) {
     for (double i : vector) {
-        out << setprecision(9) << setw(9) << i << " ";
+        out << setprecision(13) << setw(13) << i << " ";
     }
     out << endl;
 }
