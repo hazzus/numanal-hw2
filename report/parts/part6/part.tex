@@ -1,29 +1,133 @@
 \documentclass[../../report.tex]{subfiles}
 
+\input{../part1/matrices.tex}
+
+\let\dominatedGauss\dominatedResult
+\let\dominatedResult\undefined
+
+\let\randomGauss\randomResult
+\let\randomResult\undefined
+
+\let\hilbertGauss\hilbertResult
+\let\hilbertResult\undefined
+
+\input{../part2/matrices.tex}
+
+\let\dominatedJacobi\dominatedResult
+\let\dominatedResult\undefined
+
+\let\randomJacobi\randomResult
+\let\randomResult\undefined
+
+\let\hilbertJacobi\hilbertResult
+\let\hilbertResult\undefined
+
+\input{../part3/matrices.tex}
+
+\let\dominatedSeidel\dominatedResult
+\let\dominatedResult\undefined
+
+\let\randomSeidel\randomResult
+\let\randomResult\undefined
+
+\let\hilbertSeidel\hilbertResult
+\let\hilbertResult\undefined
+
+\input{../part4/matrices.tex}
+
+\let\dominatedSeidelRel\dominatedResult
+\let\dominatedResult\undefined
+
+\let\randomSeidelRel\randomResult
+\let\randomResult\undefined
+
+\let\hilbertSeidelRel\hilbertResult
+\let\hilbertResult\undefined
+
+\input{../part5/matrices.tex}
+
+\let\dominatedGrad\dominatedResult
+\let\dominatedResult\undefined
+
+\let\randomGrad\randomResult
+\let\randomResult\undefined
+
+\let\hilbertGrad\hilbertResult
+\let\hilbertResult\undefined
+
 \begin{document}
 
 \chapter{Результаты}
 
 \section{Результаты расчетов}
-    Приведём здесь записанные подряд векторы, которые были получены в результате работы метода на каждой матрице. Вот они, слева направо: Намджун, Чонгук, Чингачгук, Гойко Митич, Джин, Юнги.
-    Также сравним евклидову норму разности вектора свободных членов и результата работы алгоритма.
+    Приведём здесь записанные подряд векторы, которые были получены в результате работы метода на каждой матрице. 
+    Также сравним евклидову норму разности вектора свободных членов и вектора, который получается в результате умножения итогового $x$ каждого метода на матрицу.
+
 \subsection{Матрица с диагональным преобладанием}
-\[
-    Jacobi:
-    \begin{pmatrix}
-        0.154703 \\
-        0.109403 \\
-        0.070100 \\
-        0.116197 \\
-        0.163861 \\
-        0.190267 \\
-        0.088534 \\
-        0.072591 \\
-        0.103984 \\
-        0.058208
-    \end{pmatrix}
-\]
-Норма разности для метода Якоби: $0.0065623$.
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Метод Гаусса & Метод Якоби & Метод Зайделя & Метод Зайделя 2 & Метод спуска\\
+\hline
+$ \dominatedGauss $  
+  &
+$ \dominatedJacobi $
+  &
+$ \dominatedSeidel $
+  &
+$ \dominatedSeidelRel $
+  &
+$ \dominatedGrad $ \\
+\hline
+\multicolumn{5}{|c|}{Норма разности с ответом}\\
+\hline
+$0$ & $0.0065623$ & 2 & 3 & 4 \\
+\hline
+\end{tabular} \\
+
+\subsection{Случайная матрица}
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Метод Гаусса & Метод Якоби & Метод Зайделя & Метод Зайделя 2 & Метод спуска\\
+\hline
+$ \randomGauss $  
+  &
+Нет сходимости 
+  &
+$ \randomSeidel $
+  &
+Нет сходимости
+  &
+$ \randomGrad $ \\
+\hline
+\multicolumn{5}{|c|}{Норма разности с ответом}\\
+\hline
+$0$ & $0.0065623$ & 2 & 3 & 4 \\
+\hline
+\end{tabular} \\
+
+\subsection{Матрица Гильберта}
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Метод Гаусса & Метод Якоби & Метод Зайделя & Метод Зайделя 2 & Метод спуска\\
+\hline
+$ \hilbertGauss $  
+  &
+Нет сходимости 
+  &
+$ \hilbertSeidel $
+  &
+Нет сходимости
+  &
+$ \hilbertGrad $ \\
+\hline
+\multicolumn{5}{|c|}{Норма разности с ответом}\\
+\hline
+$0$ & $0.0065623$ & 2 & 3 & 4 \\
+\hline
+\end{tabular} \\
+
 \section{Графики}
     Какие-нибудь графики
     
