@@ -22,9 +22,3 @@ def solve(a, b, w, iterations=100, initial=None):
             x[i] = (1 - w) * x[i] + w/a[i][i] * (b[i] - sigma)
 
     return x
-
-if __name__ == "__main__":
-    n = int(input())
-    matrix = [list(map(float, input().split())) for _ in range(n)]
-    free = list(map(float, input().split()))
-    print(solve(matrix, free, 1.5))

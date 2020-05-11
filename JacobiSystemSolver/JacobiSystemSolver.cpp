@@ -1,7 +1,6 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
-
 #include "JacobiSystemSolver.h"
 
 #define MAX_NORM 1e9f
@@ -10,7 +9,6 @@ JacobiSystemSolver::JacobiSystemSolver(double eps, int maxIterations) : mEps(eps
 
 void JacobiSystemSolver::findSolution(Matrix const &coeffs, Line const &freeVars, Line &startApproach) {
     unsigned int lineSize = startApproach.size();
-
     Line tempApproach(lineSize);
     double norm;
     int passedIterations = 0;
