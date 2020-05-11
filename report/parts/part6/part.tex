@@ -55,6 +55,9 @@
 \let\hilbertGrad\hilbertResult
 \let\hilbertResult\undefined
 
+\newcommand{\noConvergence}{
+  \begin{tabular}[x]{@{}c@{}}Нет\\сходимости\end{tabular}}
+
 \begin{document}
 
 \chapter{Результаты}
@@ -82,7 +85,8 @@ $ \dominatedGrad $ \\
 \hline
 $0$ & $0.08100425208$ & $0.00019818961$ & $0.00001623736$ & $0.01095453109$ \\ 
 \hline
-\end{tabular} \\
+\end{tabular} 
+\\
 
 \subsection{Случайная матрица}
 
@@ -92,11 +96,11 @@ $0$ & $0.08100425208$ & $0.00019818961$ & $0.00001623736$ & $0.01095453109$ \\
 \hline
 $ \randomGauss $  
   &
-Нет сходимости 
+  \noConvergence 
   &
 $ \randomSeidel $
   &
-Нет сходимости
+  \noConvergence
   &
 $ \randomGrad $ \\
 \hline
@@ -104,7 +108,7 @@ $ \randomGrad $ \\
 \hline
 $0$ & - & $0.00103018051$ & - & $0.01537902781$ \\
 \hline
-\end{tabular} \\
+\end{tabular} 
 
 \subsection{Матрица Гильберта}
 
@@ -114,11 +118,11 @@ $0$ & - & $0.00103018051$ & - & $0.01537902781$ \\
 \hline
 $ \hilbertGauss $  
   &
-Нет сходимости 
+  \noConvergence
   &
 $ \hilbertSeidel $
   &
-Нет сходимости
+  \noConvergence
   &
 $ \hilbertGrad $ \\
 \hline
@@ -133,12 +137,18 @@ $0$ & - & $0.01285181223$ & - & $0.01040388157$ \\
 Следующие графики изображают изменение нормы разности вектора $Ax_i - b$ в зависимости от итерации.
 
 \subsection{Матрица с диагональным доминированием}
+\begin{center}
 \includegraphics[scale=0.5]{../../../vis/graphs/dominatedNew.png}
+\end{center}
 
 \subsection{Случайная матрица}
-\includegraphics[scale=0.57]{../../../vis/graphs/randomNew.png}
+\begin{center}
+\includegraphics[scale=0.5]{../../../vis/graphs/randomNew.png}
+\end{center}
 
 \subsection{Матрица Гильберта}
-\includegraphics[scale=0.57]{../../../vis/graphs/hilbertNew.png}
+\begin{center}
+\includegraphics[scale=0.5]{../../../vis/graphs/hilbertNew.png}
+\end{center}
 
 \end{document}
