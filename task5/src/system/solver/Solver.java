@@ -11,6 +11,8 @@ import java.util.List;
  * for solving the systems of linear equations
  */
 public class Solver {
+    private final double EPS = 0.000001;
+
     private Matrix A;
     private Matrix b;
     private List<Double> iterationsConvergence;
@@ -41,15 +43,19 @@ public class Solver {
         x = x.add(p.multiply(alpha));
         iterationsConvergence.add(calculateConvergence(x));
 
-        // other n - 1 iterations
-        for (int i = 1; i < n; i++) {
+        // other iterations
+        while (true) {
             Matrix rPrev = new Matrix(r);
             r = rPrev.subtract(A.multiply(p).multiply(alpha));
             double betta = r.transpose().multiply(r).getOnlyElement() / rPrev.transpose().multiply(rPrev).getOnlyElement();
             p = r.add(p.multiply(betta));
             alpha = r.transpose().multiply(r).getOnlyElement() / p.transpose().multiply(A).multiply(p).getOnlyElement();
+            Matrix xPrev = new Matrix(x);
             x = x.add(p.multiply(alpha));
             iterationsConvergence.add(calculateConvergence(x));
+            if (x.subtract(xPrev).abs() < EPS) {
+                break;
+            }
         }
 
         return x;

@@ -17,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
         iterationsConvergenceLists = new ArrayList<>();
-        solve(DOMINATED, false);
+        solve(DOMINATED, true);
         solve(HILBERT, false);
         solve(RANDOM, true);
 
