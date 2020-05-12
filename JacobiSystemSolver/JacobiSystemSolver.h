@@ -8,7 +8,7 @@ class JacobiSystemSolver {
 public:
     explicit JacobiSystemSolver(double eps, int maxIterations);
 
-    void findSolution(Matrix const &, Line const &, Line &);
+    void findSolution(Matrix const &, Line const &, Line &, double matrixNorm);
 
 private:
     double mEps;
