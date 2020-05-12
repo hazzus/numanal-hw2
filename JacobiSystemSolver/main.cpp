@@ -31,7 +31,7 @@ void computeAndPrintInfo(
         std::cout << element << " ";
     }
     std::cout << '\n';
-    std::cout << std::fixed;
+    std::cout << std::fixed << std::setprecision(10);
 
     jacobiSystemSolver.findSolution(coefs, freeVars, approach, matrix_norm);
 
