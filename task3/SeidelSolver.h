@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <cmath>
+#include <cstddef>
 
 using SquareMatrix = std::vector<std::vector<double>>;
 using Column = std::vector<double>;
