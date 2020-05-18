@@ -21,4 +21,14 @@ def solve(a, b, w, iterations=100, initial=None):
             sigma = np.dot(a[i], x) - a[i][i] * x[i]
             x[i] = (1 - w) * x[i] + w/a[i][i] * (b[i] - sigma)
 
-    return x
+    return (x, i_no)
+
+if __name__ == "__main__":
+    n = int(input())
+    matrix = [list(map(float, input().split())) for _ in range(n)]
+    free = list(map(float, input().split()))
+    res, iterations = solve(matrix, free, 1.5)
+    if not eps_root(matrix, free, res):
+        print("non-covergence")
+    else:
+        print(f"converged to {res}\nin {iterations} iterations")
