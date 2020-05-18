@@ -1,5 +1,6 @@
 #include <stdexcept>
 #include <iostream>
+#include <cstddef>
 #include "SeidelSolver.h"
 
 Column SeidelSolver::getSolution(const SquareMatrix &a, const Column &b) const {
@@ -38,6 +39,7 @@ bool SeidelSolver::checkEnd(const Column &x, const Column &prev) const {
     double sum = 0;
     for (size_t i = 0; i < matrix_size; ++i)
         sum += (x[i] - prev[i]) * (x[i] - prev[i]);
+    std::cout << std::fixed << sqrt(sum) << std::endl;
     return (sqrt(sum) < eps);
 }
 
